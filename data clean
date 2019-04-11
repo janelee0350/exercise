@@ -1,0 +1,17 @@
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("D:/work/data/cancer.csv")
+df.head()
+df.info()
+
+#均值替代缺失
+#mean = df['colname'].mean()
+
+#重复数据处理
+sum(df.duplicated())
+#df.drop_duplicates()
+
+#重命名列名
+
+#异常值处理

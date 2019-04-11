@@ -1,0 +1,31 @@
+##.data 型数据读取
+#df = open('D:/work/data/cancer.data','r')
+#df.close()
+##---------------------------------------------
+
+import os
+import sys
+path0=r"D:/work/data"
+path1=r"D:/work/data"+'//'
+
+sys.path.append(path1)
+print(sys.path)
+
+# 列出当前目录下所有的文件
+files = os.listdir(path0)
+# files = os.listdir('.')
+print('files',files)
+
+# 批量更换文件后缀名
+for filename in files:
+	portion = os.path.splitext(filename)
+	# 如果后缀是.data
+	if portion[1] == ".data":  
+		# 重新组合文件名和后缀名
+		
+		newname = portion[0] + ".csv" 
+		filenamedir=path1 +filename
+		newnamedir=path1+newname
+		
+		# os.rename(filename,newname)
+		os.rename(filenamedir,newnamedir)

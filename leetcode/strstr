@@ -1,0 +1,32 @@
+## 暴力法，该方法超时了
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        
+        n = len(needle)
+        if n == 0:
+            return 0
+        m = len(haystack)
+        
+        for i in range(0,m):
+            if haystack[i] == needle[0]:
+                j = 0
+                for k in range(i,m):
+                    if haystack[k] == needle[j]:
+                        j = j+1
+                        if j == n:
+                            return  i
+                    else:
+                        break
+                
+        return -1
+        
+   
+   ## kmp算法
+   # 所以，整个KMP的重点就在于当某一个字符与主串不匹配时，我们应该知道j指针要移动到哪
+   
+   

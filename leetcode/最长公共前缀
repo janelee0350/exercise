@@ -1,0 +1,47 @@
+## 编写一个函数来查找字符串数组中的最长公共前缀。 如果不存在公共前缀，返回空字符串 ""
+
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        #思路：按顺序比较
+        
+        n = len(strs)
+        if n == 0:
+            return ''
+        
+        base = strs[0]
+        m = len(base)
+        for i in range(0,m):
+            for j in strs:
+                if len(j) < (i+1) or j[i] != base[i]:
+                    if i == 0 :
+                        return ''
+                    else:
+                        return base[0:i]
+        
+        return base
+        
+        ## 法二更好：利用python的max()和min()，在Python里字符串是可以比较的，按照ascII值排，
+        ## 举例abb， aba，abac，最大为abb，最小为aba。所以只需要比较最大最小的公共前缀就是整个数组的公共前缀。
+       
+       def longestCommonPrefix(self, strs):
+        if not strs: return ""
+        s1 = min(strs)
+        s2 = max(strs)
+        for i,x in enumerate(s1):
+            if x != s2[i]:
+                return s2[:i]
+        return s1
+        
+        ## enumerate ex
+        a = enumerate('abcd')
+        for i,j in a:
+          print(i,j)
+          
+        ## out: 0 a
+                1 b
+                2 c
+                3 d

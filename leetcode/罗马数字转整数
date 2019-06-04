@@ -1,0 +1,56 @@
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        # 思路：先转化为相应数字list，若当前值小于右边，则减当前值；否则加当前值；
+        
+        n = len(s)
+        ints = list() 
+        for letter in s:
+            if letter == 'I':
+                ints.append(1)
+            elif letter == 'V':
+                ints.append(5)
+            elif letter == 'X':
+                ints.append(10)
+            elif letter == 'L':
+                ints.append(50)
+            elif letter == 'C':
+                ints.append(100)
+            elif letter == 'D':
+                ints.append(500)
+            elif letter == 'M':
+                ints.append(1000)
+        
+        new = 0
+        for i in range(0,n-1):
+            if ints[i] < ints[i+1]:
+                new = new - ints[i]
+            else:
+                new = new + ints[i]
+        new = new + ints[n-1]
+        
+        if 0<new<4000:
+            return new
+        else:
+            return False
+                
+            
+## 法二：用哈希表
+class Solution:
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        a = {'I':1, 'V':5, 'X':10, 'L':50, 'C':100, 'D':500, 'M':1000}        
+        ans=0        
+        for i in range(len(s)):            
+            if i<len(s)-1 and a[s[i]]<a[s[i+1]]:                
+                ans-=a[s[i]]
+            else:
+                ans+=a[s[i]]
+        return ans
+        

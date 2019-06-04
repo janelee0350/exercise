@@ -1,0 +1,30 @@
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        # key: 排序数组
+        # 从后面开始会减少移动次数？
+        #n = len(nums)
+        #n_new = n
+        #nn = range(1,n)
+        #nn = nn[::-1]
+        #for i in nn:
+        #    if nums[i-1]==nums[i]:
+        #        for j in range(i,n_new-1):
+        #            nums[j-1] = nums[j]  
+        #            n_new = n_new - 1
+        #            
+        #return n_new
+        # 上面方法缺点是 nums 很长时很费时。改进方法每次找全所有相等的值，再往前移。
+        
+        ## 法二
+        i = 1
+        while (i < len(nums)):
+            if nums[i] == nums[i-1]:
+                nums[i:i+1] = []
+            else:
+                i += 1
+        return len(nums)

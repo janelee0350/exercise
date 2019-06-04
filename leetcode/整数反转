@@ -1,0 +1,39 @@
+# 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        neg = 0
+        if x < 0 :
+            x = -x
+            neg  = 1
+        res = list()
+        a = list()
+        rest = x % 10
+        at = x // 10
+        res.append(rest)
+        a.append(at)
+        while at != 0:
+            x_new = at
+            rest = x_new % 10
+            at = x_new // 10
+            res.append(rest)
+            a.append(at)
+        
+        new = 0
+        n = len(res)
+        for i in range(0,n):
+            new = new + res[i]*(10**(n-1-i))
+        
+        if neg == 1:
+            new = -new
+        
+        if new < -(2**31) or new > (2**31)-1:
+            return 0
+        else:
+            return new
+
+
+##  法二：转化为字符串。但法一更好

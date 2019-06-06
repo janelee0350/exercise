@@ -1,0 +1,40 @@
+#给定一个正整数，返回它在 Excel 表中相对应的列名称。
+
+#例如，
+#    1 -> A
+#    2 -> B
+#    3 -> C
+#    ...
+#    26 -> Z
+#   27 -> AA
+#   28 -> AB 
+
+
+class Solution(object):
+    def convertToTitle(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        #key: mod 26
+        
+        s = ''
+        res = n%26
+        shang = n//26
+        if res == 0:
+            res = 26
+            shang = shang-1
+        base = ord('A')-1
+        s=s+chr(base+res)
+        
+        while shang > 26:
+            res = shang%26
+            shang = shang//26
+            if res == 0:
+                res = 26
+                shang = shang-1
+            s = s+chr(base+res)
+        
+        if shang != 0:
+            s = s+chr(base+shang)
+        return s[::-1]

@@ -1,0 +1,53 @@
+# 给定 n 个整数，找出平均数最大且长度为 k 的连续子数组，并输出该最大平均数。
+
+#示例 1:
+#输入: [1,12,-5,-6,50,3], k = 4
+#输出: 12.75
+#解释: 最大平均数 (12-5-6+50)/4 = 51/4 = 12.75
+
+class Solution(object):
+    def findMaxAverage(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: float
+        """
+        # key：1.暴力穷举法:超时了
+        
+        max_a = -99999999 #记录最大值
+        pre = 0 #记录平均值
+        
+        n = len(nums)
+        
+        if n==0:
+            return 0
+        
+        for i in range(0,n-k+1):
+            pre = sum(nums[i:i+k])
+            if max_a < pre:
+                max_a = pre
+                
+        return float(max_a)/k
+        
+    ## 法二：其实还是暴力法，但是求k个和不用sum，而是用减第一个，再加下一个的方法    
+    class Solution(object):
+    def findMaxAverage(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: float
+        """
+        # key：1.暴力穷举法:超时了
+        
+        n = len(nums)
+        if n==0:
+            return 0
+        
+        m = min(n,k)
+        pre = sum(nums[0:m]) #记录当前值
+        max_a = pre #记录最大值
+        
+        for i in range(0,n-k):
+            pre = pre-nums[i]+nums[i+k]
+            if max_a < pre:
+                max_a = pre

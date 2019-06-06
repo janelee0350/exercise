@@ -1,0 +1,43 @@
+#在无限的平面上，机器人最初位于 (0, 0) 处，面朝北方。机器人可以接受下列三条指令之一：
+
+#"G"：直走 1 个单位
+#"L"：左转 90 度
+#"R"：右转 90 度
+#机器人按顺序执行指令 instructions，并一直重复它们。
+
+#只有在平面中存在环使得机器人永远无法离开时，返回 true。否则，返回 false。
+
+# key:最多重复四次命令，其中若有任何一次执行完回到原点，那机器人就被困在环中了。
+
+class Solution(object):
+    def isRobotBounded(self, instructions):
+        """
+        :type instructions: str
+        :rtype: bool
+        """
+        # key:最多重复四次命令，其中若有任何一次执行完回到原点，那机器人就被困在环中了。
+        
+        pos = [0,0]  #记录位置
+        dirt = 0      #记录方向,以L的个数为基准：mod4为： 0:y+1; 1:x-1; 2:y-1; 3:x+1;
+                      #每遇到一个L,dirt+1, 遇到一个R，dirt-1
+        for i in range(0,4):
+            for s in instructions:
+                if s == 'L':
+                    dirt = dirt+1
+                if s == 'R':
+                    dirt=dirt-1
+                if s == 'G':
+                    dirt = dirt % 4
+                    if dirt == 0:
+                        pos[1] = pos[1]+1
+                    elif dirt == 1:
+                        pos[0] = pos[0]-1
+                    elif dirt == 2:
+                        pos[1] = pos[1]-1
+                    elif dirt == 3:
+                        pos[0] = pos[0]+1
+                           
+            if pos == [0,0]: 
+                return True
+        return False
+        

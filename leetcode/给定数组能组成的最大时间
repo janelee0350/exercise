@@ -1,0 +1,47 @@
+#给定一个由 4 位数字组成的数组，返回可以设置的符合 24 小时制的最大时间。
+#最小的 24 小时制时间是 00:00，而最大的是 23:59。从 00:00 （午夜）开始算起，过得越久，时间越大。
+#以长度为 5 的字符串返回答案。如果不能确定有效时间，则返回空字符串。
+
+
+class Solution(object):
+    def largestTimeFromDigits(self, A):
+        """
+        :type A: List[int]
+        :rtype: str
+        """
+        # key：一共4*3*2种排列，穷举；前两位小于24,后两位小于60
+        
+        s = ''
+        A.sort()
+        if A[0] > 2:
+            return s
+        if A[1] > 5:
+            return s
+        
+        max_t = -1
+        
+        for h1,h2,m1,m2 in itertools.permutations(A):
+            h = h1*10 + h2
+            m = m1*10 + m2
+            if h < 24 and m < 60:
+                temp = h*60 + m
+                if temp > max_t:
+                    max_t = temp
+        
+        if max_t == -1:
+            return ''
+        
+        h_m = max_t//60
+        m_m = max_t % 60
+        
+        s = s+str(h_m//10)+str(h_m%10)+':'+str(m_m//10)+str(m_m%10)
+        
+        return s
+        
+                    
+            
+        
+        
+            
+        
+        

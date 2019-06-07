@@ -1,0 +1,10 @@
+class Solution(object):
+    def checkPossibility(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        # 找到第一个下降的位置，看其后是否全是上升
+        # 如果是 判断下降点前后两点的大小：前<后，可以；
+        #                                  前>后，如果是第一个点，可以；
+        #                                         否则比较再前一个点和下降点的大小：小于下降点，可以，否则不行；

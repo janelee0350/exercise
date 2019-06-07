@@ -1,0 +1,62 @@
+
+## 法二：厄拉多塞筛法. 
+# 比如说求20以内质数的个数,首先0,1不是质数.
+# 2是第一个质数,然后把20以内所有2的倍数划去.2后面紧跟的数即为下一个质数3,然后把3所有的倍数划去.
+# 3后面紧跟的数即为下一个质数5,再把5所有的倍数划去.以此类推.
+
+class Solution(object):
+    def countPrimes(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        
+        if n <= 2:
+            return 0
+        
+        output = n*[1]
+        #列表的指标表示这个数，值为1表示这个数是质数
+        
+        ## 0,1非质
+        output[0] = 0
+        output[1] = 0
+        
+        for i in range(2, int(n**0.5)+1):
+            if output[i] ==1 :
+                output[i*i:n:i] = [0]*len(output[i*i:n:i])
+                # [i*i:n:i] 意为：从i*i开始，每隔i个，最大到n
+                
+        return sum(output)
+                
+        # 在上面遍历索引的时候用到了一个非常好的技巧. 即i是从(2,int(n**0.5)+1)而非(2,n).
+        # 这个技巧是可以验证的,比如说求9以内的质数个数,那么只要划掉sqrt(9)以内的质数倍数,剩下的即全为质数. 
+        # 所以在划去倍数的时候也是从i*i开始划掉,而不是i+i.
+            
+            
+        
+
+## 法一：超时了
+class Solution(object):
+    def countPrimes(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n <= 2:
+            return 0
+        primes = list([2]) 
+        
+        for i in range(3,n):    
+            flag = 0
+            for s in primes:
+                if i%s == 0:
+                    flag = 1
+                    break
+            if flag == 0:
+                primes.append(i)
+                
+        return len(primes)
+                
+            
+            
+        

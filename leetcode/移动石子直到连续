@@ -1,0 +1,43 @@
+#三枚石子放置在数轴上，位置分别为 a，b，c。
+#每一回合，我们假设这三枚石子当前分别位于位置 x, y, z 且 x < y < z。
+#从位置 x 或者是位置 z 拿起一枚石子，并将该石子移动到某一整数位置 k 处，其中 x < k < z 且 k != y。
+#当你无法进行任何移动时，即，这些石子的位置连续时，游戏结束。
+#要使游戏结束，你可以执行的最小和最大移动次数分别是多少？ 以长度为 2 的数组形式返回答案：answer = [minimum_moves, maximum_moves]
+
+
+class Solution(object):
+    def numMovesStones(self, a, b, c):
+        """
+        :type a: int
+        :type b: int
+        :type c: int
+        :rtype: List[int]
+        """
+        #分析：求出两两之间的距离 len1、len2
+        #      最小移动次数：若len1=len2=0 ：0； 
+        #                    若恰有两个连续，或两个间隔为1：len1<=1 or len2<=1 ：1
+        #                    其它情况为：2
+        
+        #      最大移动次数：求出两两之间的距离
+        #                    max = len1 + len2
+        
+        s = [a,b,c]
+        z = max(s)
+        x = min(s)
+        for i in s :
+            if i != x and i!=z:
+                y = i
+        len1 = y-x-1
+        len2 = z-y-1
+        
+        if len1 == 0 and len2 == 0:
+            n_min = 0
+        elif len1 <= 1 or len2 <= 1:
+            n_min = 1
+        else :
+            n_min = 2
+            
+        n_max = len1+len2
+        
+        return [n_min,n_max]
+            

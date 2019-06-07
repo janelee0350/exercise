@@ -1,0 +1,45 @@
+# 给定一个非空字符串 s，最多删除一个字符。判断是否能成为回文字符串。
+
+class Solution(object):
+    def validPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        # 取前一半加1个数，和后一半加一个数倒序
+        # 比较是否相同
+        # 若存在一个不相同的值，分别看删除上串和下串该值后，是否回文
+        
+        n = len(s)
+        d = n//2+1
+        
+        # s0 = s[0:d]
+        s1 = s[n-d:n]
+        s2 = s1[::-1]
+        
+        mark = d
+        for i in range(d):
+            if s[i] != s2[i]:
+                mark = i
+                break
+        
+        if mark >= d-1:
+            return True
+        
+        flag=1
+        for j in range(mark,d-1):
+            if s[j] != s2[j+1]:
+                flag=0
+                break
+        if flag == 1:
+            return True
+        
+        flag2=1
+        for j in range(mark,d-1):
+            if s2[j] != s[j+1]:
+                flag2=0
+                break
+        if flag2 == 1:
+            return True
+        
+        return False
